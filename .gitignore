@@ -6,3 +6,4 @@ venv
 EJERCICIO 8.txt
 test.py
 probando.py
+__pycache__
