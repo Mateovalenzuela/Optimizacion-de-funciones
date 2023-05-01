@@ -10,26 +10,26 @@ def graficar_rectas(funcion_objetivo: list, solucion_fo: float or int, restricci
 
     # grafica las restricciónes:
     for restriccion in restricciones:
-        x1 = np.linspace(0, 5, 100)
+        x1 = np.linspace(0, 500, 100)
         x2 = (restriccion[3] - (restriccion[0] * x1)) / restriccion[1]
         ax.plot(x1, x2, label=f'{restriccion[4]} (R1)')
 
     # grafica la F.O
-    func_obj_x1 = np.linspace(0, 10, 100)
+    func_obj_x1 = np.linspace(0, 500, 100)
     func_obj_x2 = (solucion_fo - funcion_objetivo[0] * func_obj_x1) / funcion_objetivo[1]
     ax.plot(func_obj_x1, func_obj_x2, label=f'{funcion_objetivo[2]}', linestyle='--')
 
     graficar_region_factible(restricciones)
 
-    ax.set_xlim([0, 6])
-    ax.set_ylim([0, 6])
+    ax.set_xlim([0, 700])
+    ax.set_ylim([0, 700])
     ax.legend()
     plt.show()
 
 
 def graficar_region_factible(restricciones: list):
     lineas = []
-    x = np.linspace(0, 5, 100)
+    x = np.linspace(0, 500, 100)
     y = np.arange(0, 150, 50)
 
     x1 = 0 * y
