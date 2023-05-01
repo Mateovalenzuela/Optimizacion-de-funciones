@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from shapely.geometry import LineString, Point
-from probando import test
-import ast
+import math
 
 
 def graficar_rectas(funcion_objetivo: list, solucion_fo: float or int, restricciones: list):
@@ -44,7 +43,6 @@ def graficar_region_factible(restricciones: list):
     lineas.append(LineString(np.column_stack((x1, y))))
     lineas.append(LineString(np.column_stack((x, y1))))
 
-    print(len(lineas))
     interseccines = []
 
     for i in range(0, len(lineas)):
@@ -55,26 +53,22 @@ def graficar_region_factible(restricciones: list):
 
     interseccines = list(set(interseccines))
 
-    m = []
-    n = []
-
+    puntos = []
     for interseccion in interseccines:
         xi, yi = interseccion.xy
         xi1 = np.float64(np.array(xi))
         yi1 = np.float64(np.array(yi))
         if validar_restriccion(restricciones, xi1, yi1):
-            m.append(xi1)
-            n.append(yi1)
+            puntos.append((xi1, yi1))
 
-    print(m)
-    print(n)
-    plt.fill(m, n, color='silver')
+    puntos_ordenados = ordenar_puntos_en_sentido_antihorario(puntos)
+    x = []
+    y = []
+    for punto in puntos_ordenados:
+        x.append(punto[0])
+        y.append(punto[1])
 
-    """"
-    [0.0, 3.0, 2.0, 4.0, 0.0, 0.0]
-    [0.0, 0.0, 2.0, 0.0, 4.0, 6.0]
-    combinacion con la que imprime correctamente la region factible
-    """
+    plt.fill(x, y, color='silver')
 
 
 def validar_restriccion(restricciones: list, x: int or float, y: int or float):
@@ -84,3 +78,18 @@ def validar_restriccion(restricciones: list, x: int or float, y: int or float):
         if resultado == False:
             return False
     return True
+
+
+def ordenar_puntos_en_sentido_antihorario(puntos):
+    # Encontrar el punto más a la derecha
+    punto_inicio = max(puntos, key=lambda punto: punto[0])
+
+    def calcular_angulo_con_respecto_a_inicio(punto):
+        x, y = punto[0] - punto_inicio[0], punto[1] - punto_inicio[1]
+        return math.atan2(y, x)
+
+    # Ordenar los puntos según su ángulo con respecto al punto de inicio
+    puntos_ordenados = sorted(puntos, key=calcular_angulo_con_respecto_a_inicio)
+
+    # Devolver los puntos en el orden que se han ordenado
+    return puntos_ordenados
