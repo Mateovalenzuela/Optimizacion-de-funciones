@@ -1,6 +1,7 @@
 import pulp
-def optimizar_funcion(funcion_objetivo: list, maximizar: bool, restricciones: list):
 
+
+def optimizar_funcion(funcion_objetivo: list, maximizar: bool, restricciones: list):
     # Definir las variables del problema
     x1 = pulp.LpVariable('x1', lowBound=0, cat='Continuous')
     x2 = pulp.LpVariable('x2', lowBound=0, cat='Continuous')
@@ -42,15 +43,14 @@ def optimizar_funcion(funcion_objetivo: list, maximizar: bool, restricciones: li
         if abs(problem.objective.value() - prev_sol) != 0:
             print("Hay soluciones alternativas")
         else:
-            print("No hay soluciones alternativas")
-    else:
-        print("El problema es infactible o ilimitado")
+            print("La solución es única")
 
-    # Imprimir la solución
-    print('x1 =', solucion_x1)
-    print('x2 =', solucion_x2)
-    print('Z =', solucion_z)
+        # Imprimir la solución
+        print('x1 =', solucion_x1)
+        print('x2 =', solucion_x2)
+        print('Z =', solucion_z)
+
+    else:
+        print("El problema no tiene solución")
 
     return solucion_z
-
-

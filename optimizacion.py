@@ -2,23 +2,27 @@ from optimzador_de_funcion import optimizar_funcion
 from graficador_de_rectas import graficar_rectas
 
 # coeficientes
-label_fo = 'Z = 2x1 + 3.8x2'
-coeficientes_funcion_objetivo = [2, 3.8, label_fo]
+label_fo = 'Z = 24x1 + 18x2'
+coeficientes_funcion_objetivo = [24, 18, label_fo]
 
-label_r1 = "1*x1 <= 20"
-coeficientes_restriccion1 = [1, 0, '<=', 20, label_r1]
+label_r1 = "300*x1 + 400*x2 <= 100000"
+coeficientes_restriccion1 = [300, 400, '<=', 100000, label_r1]
 
-label_r2 = "1*x2 >= 14"
-coeficientes_restriccion2 = [0, 1, '>=', 14, label_r2]
+label_r2 = "500*x1 + 200*x2 <= 120000"
+coeficientes_restriccion2 = [500, 200, '<=', 120000, label_r2]
 
-label_r3 = "50*x1 + 100*x2 == 1500"
-coeficientes_restriccion3 = [50, 100, '==', 1500, label_r3]
+label_r3 = "200*x1 + 400*x2 <= 100000"
+coeficientes_restriccion3 = [200, 400, '<=', 100000, label_r3]
+
+label_r4 = "1*x2 >= 275"
+coeficientes_restriccion4 = [0, 1, '>=', 275, label_r4]
 
 restricciones = \
     [
         coeficientes_restriccion1,
         coeficientes_restriccion2,
-        coeficientes_restriccion3
+        coeficientes_restriccion3,
+        coeficientes_restriccion4
     ]
 
 

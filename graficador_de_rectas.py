@@ -24,15 +24,15 @@ def graficar_rectas(funcion_objetivo: list, solucion_fo: float or int, restricci
 
     graficar_region_factible(restricciones)
 
-    ax.set_xlim([0, 35])
-    ax.set_ylim([0, 30])
+    ax.set_xlim([0, 500])
+    ax.set_ylim([0, 500])
     ax.legend()
     plt.show()
 
 
 def graficar_region_factible(restricciones: list):
     lineas = []
-    x = np.linspace(0, 470, 100)
+    x = np.linspace(0, 1000, 100)
     y = np.arange(0, 150, 50)
 
     x1 = 0 * y
@@ -60,7 +60,6 @@ def graficar_region_factible(restricciones: list):
 
     interseccines = list(set(interseccines))
 
-
     puntos = []
     for interseccion in interseccines:
         xi, yi = interseccion.xy
@@ -69,20 +68,21 @@ def graficar_region_factible(restricciones: list):
         if validar_restriccion(restricciones, xi1, yi1):
             puntos.append((xi1, yi1))
 
+    if puntos != []:
+        puntos_ordenados = ordenar_puntos_en_sentido_antihorario(puntos)
 
-    puntos_ordenados = ordenar_puntos_en_sentido_antihorario(puntos)
-    x = []
-    y = []
-    for punto in puntos_ordenados:
-        x.append(punto[0])
-        y.append(punto[1])
+        x = []
+        y = []
+        for punto in puntos_ordenados:
+            x.append(punto[0])
+            y.append(punto[1])
 
-    print(puntos_ordenados)
-    for i in range(0, len(x)):
-        # Graficando los vértices
-        plt.plot(x[i], y[i], 'o')
+        print(puntos_ordenados)
+        for i in range(0, len(x)):
+            # Graficando los vértices
+            plt.plot(x[i], y[i], 'o')
 
-    plt.fill(x, y, color='silver')
+        plt.fill(x, y, color='silver')
 
 
 def validar_restriccion(restricciones: list, x: int or float, y: int or float):
