@@ -11,7 +11,10 @@ def graficar_rectas(funcion_objetivo: list, solucion_fo: float or int, restricci
     # grafica las restricciónes:
     for restriccion in restricciones:
         x1 = np.linspace(0, 500, 100)
-        x2 = (restriccion[3] - (restriccion[0] * x1)) / restriccion[1]
+        if restriccion[1] != 0:
+            x2 = (restriccion[3] - (restriccion[0] * x1)) / restriccion[1]
+        else:
+            x2 = (restriccion[3] - (restriccion[0] * x1))
         ax.plot(x1, x2, label=f'{restriccion[4]} (R1)')
 
     # grafica la F.O
@@ -21,22 +24,26 @@ def graficar_rectas(funcion_objetivo: list, solucion_fo: float or int, restricci
 
     graficar_region_factible(restricciones)
 
-    ax.set_xlim([0, 700])
-    ax.set_ylim([0, 700])
+    ax.set_xlim([0, 35])
+    ax.set_ylim([0, 30])
     ax.legend()
     plt.show()
 
 
 def graficar_region_factible(restricciones: list):
     lineas = []
-    x = np.linspace(0, 500, 100)
+    x = np.linspace(0, 470, 100)
     y = np.arange(0, 150, 50)
 
     x1 = 0 * y
     y1 = 0 * x
 
     for restriccion in restricciones:
-        x2 = (restriccion[3] - (restriccion[0] * x)) / restriccion[1]
+        if restriccion[1] != 0:
+            x2 = (restriccion[3] - (restriccion[0] * x)) / restriccion[1]
+        else:
+            x2 = (restriccion[3] - (restriccion[0] * x))
+
         linea = LineString(np.column_stack((x, x2)))
         lineas.append(linea)
 
@@ -53,6 +60,7 @@ def graficar_region_factible(restricciones: list):
 
     interseccines = list(set(interseccines))
 
+
     puntos = []
     for interseccion in interseccines:
         xi, yi = interseccion.xy
@@ -61,12 +69,18 @@ def graficar_region_factible(restricciones: list):
         if validar_restriccion(restricciones, xi1, yi1):
             puntos.append((xi1, yi1))
 
+
     puntos_ordenados = ordenar_puntos_en_sentido_antihorario(puntos)
     x = []
     y = []
     for punto in puntos_ordenados:
         x.append(punto[0])
         y.append(punto[1])
+
+    print(puntos_ordenados)
+    for i in range(0, len(x)):
+        # Graficando los vértices
+        plt.plot(x[i], y[i], 'o')
 
     plt.fill(x, y, color='silver')
 
