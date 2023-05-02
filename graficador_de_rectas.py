@@ -4,7 +4,7 @@ from shapely.geometry import LineString, Point
 import math
 
 
-def graficar_rectas(funcion_objetivo: list, solucion_fo: float or int, restricciones: list):
+def graficar_rectas(funcion_objetivo: list, solucion_fo: float or int, restricciones: list, set_eje_x: tuple, set_eje_y: tuple):
     # Graficar las restricciones y la función objetivo
     fig, ax = plt.subplots()
 
@@ -24,8 +24,8 @@ def graficar_rectas(funcion_objetivo: list, solucion_fo: float or int, restricci
 
     graficar_region_factible(restricciones)
 
-    ax.set_xlim([0, 500])
-    ax.set_ylim([0, 500])
+    ax.set_xlim([set_eje_x[0], set_eje_x[1]])
+    ax.set_ylim([set_eje_y[0], set_eje_y[1]])
     ax.legend()
     plt.show()
 

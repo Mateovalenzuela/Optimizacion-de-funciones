@@ -25,13 +25,12 @@ restricciones = \
         coeficientes_restriccion4
     ]
 
-
-
-
-
 # si maximizar es True se maximiza la funcion objetivo, si es False se minimiza la funcion objetivo
 maximizar: bool = False
 
 solucion_z = optimizar_funcion(coeficientes_funcion_objetivo, maximizar, restricciones)
 
-graficar_rectas(coeficientes_funcion_objetivo, solucion_z, restricciones)
+set_largo_eje_x = (0, 500)
+set_largo_eje_y = (0, 700)
+graficar_rectas(coeficientes_funcion_objetivo, solucion_z, restricciones, set_largo_eje_x, set_largo_eje_y)
+
